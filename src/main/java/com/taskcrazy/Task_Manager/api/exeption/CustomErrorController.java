@@ -30,11 +30,17 @@ public class CustomErrorController implements ErrorController {
                 ErrorAttributeOptions.of(ErrorAttributeOptions.Include.EXCEPTION, ErrorAttributeOptions.Include.MESSAGE)
         );
 
-        return ResponseEntity
-                .status((Integer) attributes.get("status"))
+        Integer status = (Integer) attributes.getOrDefault("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        String error = (String) attributes.getOrDefault("error", "Internal Server Error");
+        String message = (String) attributes.getOrDefault("message", "An error occurred");
+
+        return ResponseEntity.status(status)
                 .body(ErrorDTO.builder()
-                        .error((String) attributes.get("error"))
-                        .errorDescription((String) attributes.get("message"))
+                        .error(error)
+                        .errorDescription(message)
                         .build());
+
     }
+
+
 }

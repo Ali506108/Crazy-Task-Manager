@@ -16,7 +16,8 @@ public class ControllerHelper {
     private final ProjectRepository projectRepository;
 
     public ProjectEntity getProjectOrThrowException(Long id) {
-        return projectRepository.findById(id)
+        return projectRepository.findByIdWithTaskStates(id)
                 .orElseThrow(() -> new NotFoundException("Project not found"));
     }
+
 }

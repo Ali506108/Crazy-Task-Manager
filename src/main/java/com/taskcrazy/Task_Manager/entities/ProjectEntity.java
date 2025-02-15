@@ -31,8 +31,7 @@ public class ProjectEntity {
     private Instant updateAt = Instant.now();
 
     @Builder.Default
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "project_id" , referencedColumnName = "id")
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<TaskStateEntity> taskStates = new ArrayList<>();
 
 

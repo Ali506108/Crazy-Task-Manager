@@ -20,6 +20,7 @@ public class TaskStateEntity {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(unique = true, nullable = false)
@@ -31,6 +32,9 @@ public class TaskStateEntity {
     private String description;
 
     private long ordinal;
+
+    @ManyToOne
+    private ProjectEntity project;
 
     @OneToMany
     @JoinColumn(name = "task_state_id")

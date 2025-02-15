@@ -20,4 +20,8 @@ public interface ProjectRepository extends JpaRepository<ProjectEntity , Long> {
 
     @Query("SELECT p FROM ProjectEntity p WHERE LOWER(p.name) LIKE LOWER(CONCAT(:name, '%'))")
     Stream<ProjectEntity> streamAllByNameStartsWithIgnoreCase(@Param("name") String name);
+
+    @Query("SELECT p FROM ProjectEntity p LEFT JOIN FETCH p.taskStates WHERE p.id = :projectId")
+    Optional<ProjectEntity> findByIdWithTaskStates(@Param("projectId") Long projectId);
+
 }
